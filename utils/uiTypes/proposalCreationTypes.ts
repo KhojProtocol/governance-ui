@@ -475,6 +475,7 @@ export enum Instructions {
   DeactivateValidatorStake,
   WithdrawValidatorStake,
   DifferValidatorStake,
+  KhojCreateJob,
 }
 
 export type createParams = [
@@ -545,4 +546,10 @@ export interface ValidatorWithdrawStakeForm {
   governedTokenAccount: AssetAccount | undefined
   stakingAccount: StakeAccount | undefined
   amount: number
+}
+
+export interface KhojCreateJobForm {
+  governedAccount: AssetAccount | null
+  uri: string
+  price: number
 }

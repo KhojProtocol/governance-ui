@@ -486,6 +486,11 @@ export default function useGovernanceAssets() {
       name: 'Solend: Withdraw Funds',
       isVisible: canUseAnyInstruction,
     },
+    {
+      id: Instructions.KhojCreateJob,
+      name: 'Khoj: Create Job',
+      isVisible: canUseAuthorityInstruction,
+    },
     ...foresightInstructions,
   ]
 
