@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import useRealm from '@hooks/useRealm'
 import {
   PublicKey,
-  SystemProgram,
+  // SystemProgram,
   TransactionInstruction,
 } from '@solana/web3.js'
 import * as yup from 'yup'
@@ -23,12 +23,12 @@ import InstructionForm, {
   InstructionInput,
   InstructionInputType,
 } from '../FormCreator'
-import { BN } from '@project-serum/anchor'
+// import { BN } from '@project-serum/anchor'
 import {
   USDC_MINT,
   MANGO_USDC_MINT_DEVNET,
 } from 'Strategies/protocols/mango/tools'
-import { abbreviateAddress } from '@utils/formatting'
+// import { abbreviateAddress } from '@utils/formatting'
 
 const CreateJob = ({
   index,
@@ -56,17 +56,17 @@ const CreateJob = ({
             PRICE_MINT.toBase58()
       )
   )
-  const governedUSDCAccounts = assetAccounts.filter(
-    (token) =>
-      token.isToken &&
-      token.extensions.mint?.publicKey.toBase58() === PRICE_MINT.toBase58() &&
-      governedSolAccounts.find(
-        (solAcc) =>
-          solAcc.extensions.transferAddress?.toBase58() ===
-          token.extensions.token?.account.owner.toBase58()
-      )
-  )
-  const shouldBeGoverned = index !== 0 && governance
+  // const governedUSDCAccounts = assetAccounts.filter(
+  //   (token) =>
+  //     token.isToken &&
+  //     token.extensions.mint?.publicKey.toBase58() === PRICE_MINT.toBase58() &&
+  //     governedSolAccounts.find(
+  //       (solAcc) =>
+  //         solAcc.extensions.transferAddress?.toBase58() ===
+  //         token.extensions.token?.account.owner.toBase58()
+  //     )
+  // )
+  // const shouldBeGoverned = index !== 0 && governance
   const programId: PublicKey | undefined = realmInfo?.programId
   const [form, setForm] = useState<KhojCreateJobForm>({
     governedAccount: null,
