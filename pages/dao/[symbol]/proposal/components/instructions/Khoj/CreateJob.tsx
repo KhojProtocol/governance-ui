@@ -37,6 +37,7 @@ const CreateJob = ({
   index: number
   governance: ProgramAccount<Governance> | null
 }) => {
+  console.log(governance)
   const wallet = useWalletStore((s) => s.current)
   const { connection } = useWalletStore()
   const { realmInfo } = useRealm()
@@ -56,6 +57,7 @@ const CreateJob = ({
             PRICE_MINT.toBase58()
       )
   )
+  console.log(governedSolAccounts)
   // const governedUSDCAccounts = assetAccounts.filter(
   //   (token) =>
   //     token.isToken &&
