@@ -23,7 +23,7 @@ export const createUser = async (
     organisation: string
   }
 ): Promise<[Transaction, PublicKey]> => {
-  let transaction = new Transaction()
+  const transaction = new Transaction()
 
   return withInitUser(transaction, connection, wallet, params)
 }
@@ -37,7 +37,7 @@ export const updateUser = async (
     organisation: string
   }
 ): Promise<[Transaction, PublicKey]> => {
-  let transaction = new Transaction()
+  const transaction = new Transaction()
 
   return await withUpdateUser(transaction, connection, wallet, params)
 }
@@ -80,7 +80,7 @@ export const createJob = async (
     priceMint: PublicKey
   }
 ): Promise<[Transaction, PublicKey]> => {
-  let transaction = new Transaction()
+  const transaction = new Transaction()
 
   return await withInitJob(transaction, connection, wallet, params)
 }
@@ -94,7 +94,7 @@ export const createProposal = async (
     jobId: PublicKey
   }
 ): Promise<[Transaction, PublicKey]> => {
-  let transaction = new Transaction()
+  const transaction = new Transaction()
 
   return await withInitProposal(transaction, connection, wallet, params)
 }
