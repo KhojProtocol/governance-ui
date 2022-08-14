@@ -25,7 +25,7 @@ import { tryGetMint } from '@utils/tokens'
 
 import { parseMintMaxVoteWeight } from '@tools/governance/units'
 import {
-  getTimestampFromDays,
+  // getTimestampFromDays,
   getMintNaturalAmountFromDecimalAsBN,
 } from '@tools/sdk/units'
 import { withCreateMint } from '@tools/sdk/splToken/withCreateMint'
@@ -42,7 +42,7 @@ interface RealmCreation {
 
   realmName: string
   tokensToGovernThreshold: number | undefined
-  maxVotingTimeInDays?: number
+  // maxVotingTimeInDays?: number
 
   nftCollectionCount?: number
   existingCommunityMintPk: PublicKey | undefined
@@ -65,7 +65,7 @@ export async function prepareRealmCreation({
 
   realmName,
   tokensToGovernThreshold,
-  maxVotingTimeInDays = 3,
+  // maxVotingTimeInDays = 3,
 
   nftCollectionCount = 0,
   existingCommunityMintPk,

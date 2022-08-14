@@ -24,13 +24,9 @@ import InstructionForm, {
   InstructionInput,
   InstructionInputType,
 } from '../FormCreator'
-import {
-  USDC_MINT,
-  MANGO_USDC_MINT_DEVNET,
-} from 'Strategies/protocols/mango/tools'
+import { USDC_MINT } from 'Strategies/protocols/mango/tools'
 import { createJob } from './src/apis'
 import { BN } from '@project-serum/anchor'
-import { USDC_DEVNET } from '@tools/sagaPhone/mortar'
 import { abbreviateAddress } from '@utils/formatting'
 
 const KHOJ_MINT_DEVNET = new PublicKey(

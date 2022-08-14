@@ -33,7 +33,7 @@ import {
 import { withDepositGoverningTokens } from '@solana/spl-governance'
 import {
   getMintNaturalAmountFromDecimalAsBN,
-  getTimestampFromDays,
+  // getTimestampFromDays,
 } from '@tools/sdk/units'
 import { withCreateMintGovernance } from '@solana/spl-governance'
 import { withSetRealmAuthority } from '@solana/spl-governance'

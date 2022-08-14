@@ -1,10 +1,5 @@
 import { BN } from '@project-serum/anchor'
-import type {
-  Connection,
-  PublicKey,
-  Transaction,
-  TransactionInstruction,
-} from '@solana/web3.js'
+import type { Connection, PublicKey, Transaction } from '@solana/web3.js'
 import type { Wallet } from '@saberhq/solana-contrib'
 import { tryGetAccount, withFindOrInitAssociatedTokenAccount } from './utils'
 import {
@@ -205,7 +200,7 @@ export const withInitJob = async (
 ): Promise<[Transaction, PublicKey]> => {
   const [userId] = await findUserId(wallet.publicKey)
 
-  let userData = await tryGetAccount(() =>
+  const userData = await tryGetAccount(() =>
     getUserData(connection, wallet.publicKey)
   )
 
@@ -219,7 +214,7 @@ export const withInitJob = async (
       })
     )
   }
-  let jobCount = userData?.parsed.createdJobCount || new BN(0)
+  const jobCount = userData?.parsed.createdJobCount || new BN(0)
   const [jobId] = await findJobId(userId, jobCount)
 
   transaction.add(

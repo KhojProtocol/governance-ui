@@ -13,7 +13,6 @@ import {
   withUnstake,
   withUpdateUser,
 } from './transactions'
-import { tryGetAccount } from './utils'
 
 export const createUser = async (
   connection: Connection,
@@ -25,16 +24,8 @@ export const createUser = async (
   }
 ): Promise<[Transaction, PublicKey]> => {
   let transaction = new Transaction()
-  let userId: PublicKey
 
-  ;[transaction, userId] = await withInitUser(
-    transaction,
-    connection,
-    wallet,
-    params
-  )
-
-  return [transaction, userId]
+  return withInitUser(transaction, connection, wallet, params)
 }
 
 export const updateUser = async (
@@ -47,16 +38,8 @@ export const updateUser = async (
   }
 ): Promise<[Transaction, PublicKey]> => {
   let transaction = new Transaction()
-  let userId: PublicKey
 
-  ;[transaction, userId] = await withUpdateUser(
-    transaction,
-    connection,
-    wallet,
-    params
-  )
-
-  return [transaction, userId]
+  return await withUpdateUser(transaction, connection, wallet, params)
 }
 
 export const stake = async (
@@ -98,16 +81,8 @@ export const createJob = async (
   }
 ): Promise<[Transaction, PublicKey]> => {
   let transaction = new Transaction()
-  let jobId: PublicKey
 
-  ;[transaction, jobId] = await withInitJob(
-    transaction,
-    connection,
-    wallet,
-    params
-  )
-
-  return [transaction, jobId]
+  return await withInitJob(transaction, connection, wallet, params)
 }
 
 export const createProposal = async (
@@ -120,16 +95,8 @@ export const createProposal = async (
   }
 ): Promise<[Transaction, PublicKey]> => {
   let transaction = new Transaction()
-  let proposalId: PublicKey
 
-  ;[transaction, proposalId] = await withInitProposal(
-    transaction,
-    connection,
-    wallet,
-    params
-  )
-
-  return [transaction, proposalId]
+  return await withInitProposal(transaction, connection, wallet, params)
 }
 
 export const acceptProposal = async (
