@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import useRealm from '@hooks/useRealm'
 import {
   PublicKey,
+  SystemProgram,
   // SystemProgram,
   TransactionInstruction,
 } from '@solana/web3.js'
@@ -23,12 +24,18 @@ import InstructionForm, {
   InstructionInput,
   InstructionInputType,
 } from '../FormCreator'
-// import { BN } from '@project-serum/anchor'
 import {
   USDC_MINT,
   MANGO_USDC_MINT_DEVNET,
 } from 'Strategies/protocols/mango/tools'
-// import { abbreviateAddress } from '@utils/formatting'
+import { createJob } from './src/apis'
+import { BN } from '@project-serum/anchor'
+import { USDC_DEVNET } from '@tools/sagaPhone/mortar'
+import { abbreviateAddress } from '@utils/formatting'
+
+const KHOJ_MINT_DEVNET = new PublicKey(
+  'Hw9FZ2nZ7QsL7WngdQyQpqJChfV2v9LZzYqp8LM3Uza5'
+)
 
 const CreateJob = ({
   index,
@@ -42,9 +49,10 @@ const CreateJob = ({
   const { connection } = useWalletStore()
   const { realmInfo } = useRealm()
   const { assetAccounts } = useGovernanceAssets()
+  console.log('Khoj asset', assetAccounts)
   const isDevnet = connection.cluster === 'devnet'
   const PRICE_MINT = isDevnet
-    ? new PublicKey(MANGO_USDC_MINT_DEVNET)
+    ? new PublicKey(KHOJ_MINT_DEVNET)
     : new PublicKey(USDC_MINT)
   const governedSolAccounts = assetAccounts.filter(
     (solAcc) =>
@@ -57,21 +65,23 @@ const CreateJob = ({
             PRICE_MINT.toBase58()
       )
   )
-  console.log(governedSolAccounts)
-  // const governedUSDCAccounts = assetAccounts.filter(
-  //   (token) =>
-  //     token.isToken &&
-  //     token.extensions.mint?.publicKey.toBase58() === PRICE_MINT.toBase58() &&
-  //     governedSolAccounts.find(
-  //       (solAcc) =>
-  //         solAcc.extensions.transferAddress?.toBase58() ===
-  //         token.extensions.token?.account.owner.toBase58()
-  //     )
-  // )
-  // const shouldBeGoverned = index !== 0 && governance
+  console.log('Khoj sol', governedSolAccounts)
+  const governedUSDCAccounts = assetAccounts.filter(
+    (token) =>
+      token.isToken &&
+      token.extensions.mint?.publicKey.toBase58() === PRICE_MINT.toBase58() &&
+      governedSolAccounts.find(
+        (solAcc) =>
+          solAcc.extensions.transferAddress?.toBase58() ===
+          token.extensions.token?.account.owner.toBase58()
+      )
+  )
+  console.log('Khoj usdc', governedUSDCAccounts)
+  const shouldBeGoverned = index !== 0 && governance
   const programId: PublicKey | undefined = realmInfo?.programId
   const [form, setForm] = useState<KhojCreateJobForm>({
     governedAccount: null,
+    title: '',
     uri: '',
     price: 1,
   })
@@ -93,20 +103,27 @@ const CreateJob = ({
     if (
       isValid &&
       programId &&
-      // form.governedAccount?.governance?.account &&
+      form.governedAccount?.governance?.account &&
       wallet?.publicKey
     ) {
-      // //size of ata
-      // const size = 165
-      // const rent = await connection.current.getMinimumBalanceForRentExemption(
-      //   size
-      // )
-      // const transferRentIx = SystemProgram.transfer({
-      //   fromPubkey: wallet.publicKey!,
-      //   toPubkey: form.governedAccount.extensions.token!.account.owner!,
-      //   lamports: rent,
-      // })
-      // prequisiteInstructions.push(transferRentIx)
+      const [transaction] = await createJob(connection.current, wallet as any, {
+        title: form.title,
+        uri: form.uri,
+        price: new BN(form.price),
+        priceMint: PRICE_MINT,
+      })
+
+      //size of ata
+      const size = 165
+      const rent = await connection.current.getMinimumBalanceForRentExemption(
+        size
+      )
+      const transferRentIx = SystemProgram.transfer({
+        fromPubkey: wallet.publicKey!,
+        toPubkey: form.governedAccount.extensions.token!.account.owner!,
+        lamports: rent,
+      })
+      prequisiteInstructions.push(transferRentIx)
       // //Mango instruction call and serialize
       // const instructions = await getPurchaseInstructions(
       //   form.governedAccount.extensions.token!.account.owner!,
@@ -117,7 +134,7 @@ const CreateJob = ({
       //   connection.current
       // )
 
-      const instructions = []
+      const instructions = transaction.instructions
       serializedInstructions = instructions.map((x) =>
         serializeInstructionToBase64(x)
       )
@@ -144,32 +161,38 @@ const CreateJob = ({
     )
   }, [form])
   const schema = yup.object().shape({
-    quantity: yup.number().min(1).required('Mango group is required'),
-    governedAccount: yup
-      .object()
-      .nullable()
-      .required('Program governed account is required'),
+    // price: yup.number().min(1).required('Price is required'),
   })
   const inputs: InstructionInput[] = [
-    // {
-    //   label: 'USDC account owned by SOL account',
-    //   initialValue: form.governedAccount,
-    //   name: 'governedAccount',
-    //   type: InstructionInputType.GOVERNED_ACCOUNT,
-    //   shouldBeGoverned: shouldBeGoverned as any,
-    //   governance: governance,
-    //   options: governedUSDCAccounts,
-    //   additionalComponent: form.governedAccount?.extensions.token ? (
-    //     <div>
-    //       SOL account:{' '}
-    //       <small>
-    //         {abbreviateAddress(
-    //           form.governedAccount?.extensions.token?.account.owner
-    //         )}
-    //       </small>
-    //     </div>
-    //   ) : null,
-    // },
+    {
+      label: 'USDC account owned by SOL account',
+      initialValue: form.governedAccount,
+      name: 'governedAccount',
+      type: InstructionInputType.GOVERNED_ACCOUNT,
+      shouldBeGoverned: shouldBeGoverned as any,
+      governance: governance,
+      options: governedUSDCAccounts,
+      additionalComponent: form.governedAccount?.extensions.token ? (
+        <div>
+          SOL account:{' '}
+          <small>
+            {abbreviateAddress(
+              form.governedAccount?.extensions.token?.account.owner
+            )}
+          </small>
+        </div>
+      ) : null,
+    },
+    {
+      label: 'Title',
+      initialValue: form.uri,
+      type: InstructionInputType.INPUT,
+      // validateMinMax: true,
+      name: 'title',
+      inputType: 'string',
+      // min: 1,
+      additionalComponent: <div>Title: {form.uri ? form.uri : ''}</div>,
+    },
     {
       label: 'URI',
       initialValue: form.uri,

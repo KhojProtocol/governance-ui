@@ -49,7 +49,7 @@ export function getGovernanceConfig(values: GovernanceConfigValues) {
     minInstructionHoldUpTime: getTimestampFromDays(
       values.minInstructionHoldUpTime
     ),
-    maxVotingTime: getTimestampFromDays(values.maxVotingTime),
+    maxVotingTime: 100, //getTimestampFromDays(values.maxVotingTime),
     // Use 1 as default for council tokens.
     // Council tokens are rare and possession of any amount of council tokens should be sufficient to be allowed to create proposals
     // If it turns to be a wrong assumption then it should be exposed in the UI

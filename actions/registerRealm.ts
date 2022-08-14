@@ -199,7 +199,7 @@ function createGovernanceConfig(
     // Do not use instruction hold up time
     minInstructionHoldUpTime: 0,
     // max voting time 3 days
-    maxVotingTime: getTimestampFromDays(3),
+    maxVotingTime: 100, //getTimestampFromDays(3),
     voteTipping: VoteTipping.Strict,
     proposalCoolOffTime: 0,
     minCouncilTokensToCreateProposal: new BN(1),

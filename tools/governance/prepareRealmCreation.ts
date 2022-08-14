@@ -263,7 +263,7 @@ export async function prepareRealmCreation({
     // Do not use instruction hold up time
     minInstructionHoldUpTime: 0,
     // max voting time 3 days
-    maxVotingTime: getTimestampFromDays(maxVotingTimeInDays),
+    maxVotingTime: 100, //getTimestampFromDays(maxVotingTimeInDays),
     voteTipping: VoteTipping.Strict,
     proposalCoolOffTime: 0,
     minCouncilTokensToCreateProposal: new BN(initialCouncilTokenAmount),

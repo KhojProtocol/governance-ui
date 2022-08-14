@@ -550,6 +550,7 @@ export interface ValidatorWithdrawStakeForm {
 
 export interface KhojCreateJobForm {
   governedAccount: AssetAccount | null
+  title: string
   uri: string
   price: number
 }
