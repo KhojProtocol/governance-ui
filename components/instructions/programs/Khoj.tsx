@@ -8,7 +8,7 @@ import {
   NEO_CONTRACT_PROGRAM_ADDRESS,
   NEO_IDL,
   NEO_PROGRAM,
-} from 'pages/dao/[symbol]/proposal/components/instructions/Khoj/src/constants'
+} from '@khoj-protocol/sdk/dist/cjs/constants'
 
 export const KHOJ_INSTRUCTIONS = {
   [NEO_CONTRACT_PROGRAM_ADDRESS.toBase58()]: {

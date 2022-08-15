@@ -25,9 +25,9 @@ import InstructionForm, {
   InstructionInputType,
 } from '../FormCreator'
 import { USDC_MINT } from 'Strategies/protocols/mango/tools'
-import { createJob } from './src/apis'
 import { BN } from '@project-serum/anchor'
 import { abbreviateAddress } from '@utils/formatting'
+import { createJob } from '@khoj-protocol/sdk/dist/cjs/apis'
 
 const KHOJ_MINT_DEVNET = new PublicKey(
   'Hw9FZ2nZ7QsL7WngdQyQpqJChfV2v9LZzYqp8LM3Uza5'

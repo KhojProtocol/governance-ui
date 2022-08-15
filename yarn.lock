@@ -2701,6 +2701,14 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@khoj-protocol/sdk@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@khoj-protocol/sdk/-/sdk-0.1.1.tgz#8bbf6d8cb425a22de5885bb7d52462af13261316"
+  integrity sha512-HrNvrdQP+v9w30hFA0Qm8pM8rEEoQWpPb1fXX8ShdTfyfght/1fJ62yOUTELgBuzNuzzJjRrcE845zWiiQJgpA==
+  dependencies:
+    "@project-serum/anchor" "^0.24.2"
+    buffer-layout "^1.2.2"
+
 "@ledgerhq/devices@^6.20.0":
   version "6.20.0"
   resolved "https://registry.npmjs.org/@ledgerhq/devices/-/devices-6.20.0.tgz"
