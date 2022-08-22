@@ -43,7 +43,9 @@ export const KHOJ_INSTRUCTIONS = {
                 jsonData = await (
                   await fetch(`https://arweave.net/${pD.parsed.uri}`)
                 ).json()
-              } catch (error) {}
+              } catch (e) {
+                console.log(e)
+              }
               return {
                 data: pD,
                 name: jsonData['name'] || '',
@@ -59,13 +61,14 @@ export const KHOJ_INSTRUCTIONS = {
               <div>Title: {decodedInstructionData.ix.title}</div>
               <div>Price: {decodedInstructionData.ix.price.toNumber()}</div>
               {proposalValues.map((proposal, index) => (
-                <div>
+                <div key={index}>
                   <br />
                   <hr />
                   <br />
                   <div>Title: {proposal.name}</div>
                   <div>Description: {proposal.description}</div>
                   <div>Price: {proposal.data.parsed.price.toNumber()}</div>
+                  <div>Proposal Id: {proposal.data.pubkey.toBase58()}</div>
                 </div>
               ))}
             </div>
