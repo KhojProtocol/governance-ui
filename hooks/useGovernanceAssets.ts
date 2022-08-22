@@ -262,6 +262,11 @@ export default function useGovernanceAssets() {
       isVisible: canUseAnyInstruction,
     },
     {
+      id: Instructions.KhojAcceptJobProposal,
+      name: 'Khoj: Accept Job Proposal',
+      isVisible: canUseAnyInstruction,
+    },
+    {
       id: Instructions.None,
       name: 'None',
       isVisible:
@@ -494,6 +499,11 @@ export default function useGovernanceAssets() {
     {
       id: Instructions.KhojCreateJob,
       name: 'Khoj: Create Job',
+      isVisible: canUseAuthorityInstruction,
+    },
+    {
+      id: Instructions.KhojAcceptJobProposal,
+      name: 'Khoj: Accept Job Proposal',
       isVisible: canUseAuthorityInstruction,
     },
     ...foresightInstructions,

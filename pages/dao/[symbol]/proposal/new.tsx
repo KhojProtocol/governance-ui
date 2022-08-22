@@ -106,6 +106,7 @@ import Serum3RegisterMarket from './components/instructions/Mango/MangoV4/Serum3
 import PerpCreate from './components/instructions/Mango/MangoV4/PerpCreate'
 import TokenRegisterTrustless from './components/instructions/Mango/MangoV4/TokenRegisterTrustless'
 import CreateJob from './components/instructions/Khoj/CreateJob'
+import AcceptJobProposal from './components/instructions/Khoj/AcceptJobProposal'
 
 const TITLE_LENGTH_LIMIT = 130
 
@@ -677,6 +678,8 @@ const New = () => {
         return <UpdateTokenMetadata index={idx} governance={governance} />
       case Instructions.KhojCreateJob:
         return <CreateJob index={idx} governance={governance} />
+      case Instructions.KhojAcceptJobProposal:
+        return <AcceptJobProposal index={idx} governance={governance} />
       default:
         null
     }
