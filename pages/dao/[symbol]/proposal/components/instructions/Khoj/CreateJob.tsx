@@ -181,13 +181,13 @@ const CreateJob = ({
     },
     {
       label: 'Title',
-      initialValue: form.uri,
+      initialValue: form.title,
       type: InstructionInputType.INPUT,
       // validateMinMax: true,
       name: 'title',
       inputType: 'string',
       // min: 1,
-      additionalComponent: <div>Title: {form.uri ? form.uri : ''}</div>,
+      additionalComponent: <div>Title: {form.title ? form.title : ''}</div>,
     },
     {
       label: 'URI',
@@ -204,8 +204,8 @@ const CreateJob = ({
       initialValue: form.price,
       type: InstructionInputType.INPUT,
       validateMinMax: true,
-      name: 'quantity',
-      inputType: 'number',
+      name: 'price',
+      inputType: 'string',
       min: 1,
       additionalComponent: (
         <div>Price: {form.price ? Number(form.price) : 0}</div>
