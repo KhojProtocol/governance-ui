@@ -107,6 +107,7 @@ import PerpCreate from './components/instructions/Mango/MangoV4/PerpCreate'
 import TokenRegisterTrustless from './components/instructions/Mango/MangoV4/TokenRegisterTrustless'
 import CreateJob from './components/instructions/Khoj/CreateJob'
 import AcceptJobProposal from './components/instructions/Khoj/AcceptJobProposal'
+import AcceptWork from './components/instructions/Khoj/AcceptWork'
 
 const TITLE_LENGTH_LIMIT = 130
 
@@ -680,6 +681,8 @@ const New = () => {
         return <CreateJob index={idx} governance={governance} />
       case Instructions.KhojAcceptJobProposal:
         return <AcceptJobProposal index={idx} governance={governance} />
+      case Instructions.KhojAcceptWork:
+        return <AcceptWork index={idx} governance={governance} />
       default:
         null
     }

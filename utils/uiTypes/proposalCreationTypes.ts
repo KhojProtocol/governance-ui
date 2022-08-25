@@ -477,6 +477,7 @@ export enum Instructions {
   DifferValidatorStake,
   KhojCreateJob,
   KhojAcceptJobProposal,
+  KhojAcceptWork,
 }
 
 export type createParams = [
@@ -557,6 +558,11 @@ export interface KhojCreateJobForm {
 }
 
 export interface KhojAcceptJobProposalForm {
+  governedAccount: AssetAccount | null
+  proposalId: string
+}
+
+export interface KhojAcceptWorkForm {
   governedAccount: AssetAccount | null
   proposalId: string
 }
