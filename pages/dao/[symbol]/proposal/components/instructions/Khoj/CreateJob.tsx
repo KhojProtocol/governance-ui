@@ -102,7 +102,30 @@ const CreateJob = ({
       form.governedAccount?.governance?.account &&
       wallet?.publicKey
     ) {
+      // const provider = new AnchorProvider(connection.current, wallet, {})
+      // const neoProgram = new Program<NEO_PROGRAM>(
+      //   NEO_IDL,
+      //   NEO_CONTRACT_PROGRAM_ADDRESS,
+      //   provider
+      // )
+      // const [userId] = await findUserId(governedSolAccounts[0].pubkey)
+      // const instruction = await neoProgram.methods
+      //   .initUser({
+      //     firstName: "Khoj",
+      //     lastName: "DAO",
+      //     organisation: "",
+      //     pfp: null,
+      //     userType: 0,
+      //   })
+      //   .accounts({
+      //     user: userId,
+      //     payer: governedSolAccounts[0].pubkey,
+      //     systemProgram: SystemProgram.programId,
+      //   })
+      //   .instruction()
+
       const [transaction] = await createJob(connection.current, wallet as any, {
+        creator: governedSolAccounts[0].pubkey,
         title: form.title,
         uri: form.uri,
         price: new BN(form.price),
@@ -130,7 +153,7 @@ const CreateJob = ({
       //   connection.current
       // )
 
-      const instructions = transaction.instructions
+      const instructions = transaction.instructions //[instruction] //
       serializedInstructions = instructions.map((x) =>
         serializeInstructionToBase64(x)
       )

@@ -108,6 +108,7 @@ const AcceptJobProposal = ({
         connection.current,
         wallet as any,
         {
+          authority: governedSolAccounts[0].pubkey,
           proposalId: new PublicKey(form.proposalId),
           jobId: proposal.parsed.job,
         }

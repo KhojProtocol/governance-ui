@@ -11,7 +11,10 @@ const ENDPOINTS: EndpointInfo[] = [
   },
   {
     name: 'devnet',
-    url: process.env.DEVNET_RPC || 'https://api.devnet.solana.com/',
+    url:
+      process.env.DEVNET_RPC ||
+      'https://hidden-young-friday.solana-devnet.discover.quiknode.pro/c17f1c787312bfe29228682113ea120376f5f447',
+    //'https://api.devnet.solana.com/',
   },
   {
     name: 'localnet',

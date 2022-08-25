@@ -12,7 +12,11 @@ export function getExplorerUrl(
       cluster = `custom&customUrl=${encodeURIComponent(
         'http://127.0.0.1:8899'
       )}`
-    } else if (endpoint === 'https://api.devnet.solana.com') {
+    } else if (
+      endpoint ===
+      'https://hidden-young-friday.solana-devnet.discover.quiknode.pro/c17f1c787312bfe29228682113ea120376f5f447'
+    ) {
+      //'https://api.devnet.solana.com'
       // if the default free RPC for devnet is used
       cluster = 'devnet'
     } else if (endpoint === 'devnet') {
